@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Course {
-  id          String   @id @default(uuid())
+  xata_id          String   @xata_id @default(uuid())
   userId      String
   title       String   @db.Text
   description String?  @db.Text
@@ -22,27 +22,27 @@ model Course {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  category   Category?     @relation(fields: [categoryId], references: [id])
+  category   Category?     @relation(fields: [categoryId], references: [xata_id])
   Attachment Attachment[]
 
   @@index([categoryId])
 }
 
 model Category {
-  id     String   @id @default(uuid())
+  xata_id     String   @xata_id @default(uuid())
   name   String   @unique
   Course Course[]
 }
 
 model Attachment {
-  id        String   @id @default(uuid())
+  xata_id        String   @xata_id @default(uuid())
   name      String
   url       String   @db.Text
   courseId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [xata_id], onDelete: Cascade)
 
   @@index([courseId])
 }
